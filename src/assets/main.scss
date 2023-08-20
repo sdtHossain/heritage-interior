@@ -1,4 +1,18 @@
-$primary: green;
+$primary: #daa14c;
+$body-bg: #f8f6f4;
+@import './styles/spacer';
+@import './styles/global';
+// Required
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+
+// Add a custom color to $theme-colors
+$custom-colors: (
+  'gray': #666666,
+  'tertiary': #30373e
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
 
 @import 'bootstrap/scss/bootstrap';
 @import 'remixicon/fonts/remixicon.css';
