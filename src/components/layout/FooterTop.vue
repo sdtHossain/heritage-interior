@@ -6,7 +6,7 @@ import NavMenu from '../common/NavMenu.vue'
     <RouterLink to="#" class="link-body-emphasis text-decoration-none">
       <img src="@/assets/images/logo.png" alt="" />
     </RouterLink>
-    <NavMenu item-color="tertiary" class="mt-4 mb-20 fw-bold" />
+    <NavMenu item-color="tertiary" class="mt-4 mb-20 fw-bold" :isHeader="false" />
   </div>
 </template>
 <style scoped></style>

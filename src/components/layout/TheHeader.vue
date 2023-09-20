@@ -4,5 +4,5 @@ import NavMenu from '../common/NavMenu.vue'
 </script>
 <template>
   <HeaderTop />
-  <NavMenu />
+  <NavMenu item-color="primary" :isHeader="true" />
 </template>

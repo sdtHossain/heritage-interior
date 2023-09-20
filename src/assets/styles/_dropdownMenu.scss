@@ -1,0 +1,45 @@
+.nav-menu {
+  // width: fit-content;
+  background: #fff;
+}
+
+.dropdown-nav-menu {
+  position: relative;
+  min-width: 100px;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+// .has-child {
+//   position: relative;
+
+//   &::after {
+//     content: '\ea6e';
+//     position: absolute;
+//     right: 10px;
+//   }
+// }
+
+.ri-arrow-right-s-line::before {
+  position: absolute;
+  right: 0;
+}
+
+.submenu {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  visibility: hidden;
+}
+
+.dropdown-nav-menu:hover > .submenu {
+  visibility: visible;
+  height: auto;
+  width: auto;
+  z-index: 999;
+  left: 100%;
+  top: 0;
+  text-wrap: nowrap;
+}

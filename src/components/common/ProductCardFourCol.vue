@@ -17,10 +17,6 @@ const props = defineProps({
     default: 'product'
   }
 })
-
-const test = () => {
-  console.log('clicked')
-}
 </script>
 <template>
   <div class="container">

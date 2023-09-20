@@ -11,6 +11,7 @@ import ProductDetails from '@/components/product-details/ProductDetails.vue'
 import { ref } from 'vue'
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
+import ProductCardGrid from '@/components/common/ProductCardGrid.vue'
 const { isProductModalOpen } = storeToRefs(useProductStore())
 </script>
 
@@ -19,6 +20,7 @@ const { isProductModalOpen } = storeToRefs(useProductStore())
     <ProductDetails v-if="isProductModalOpen" />
     <TheBanner />
     <HighlightedProduct class="mt-7" />
+    <ProductCardGrid class="my-15" />
     <BestSellingProducts class="pt-20" />
     <FeaturedProducts class="pt-20" />
     <!-- <WeProvide class="py-20" /> -->

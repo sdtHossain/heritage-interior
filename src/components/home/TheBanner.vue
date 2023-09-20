@@ -16,64 +16,82 @@ const onSwiper = (swiper: any) => {
 }
 </script>
 <template>
-  <div class="home-banner">
-    <swiper
-      :slides-per-view="1"
-      :space-between="50"
-      :modules="[Navigation, Autoplay]"
-      :autoplay="{
-        delay: 5500,
-        disableOnInteraction: false
-      }"
-      navigation
-      :scrollbar="{ hide: true }"
-      class="mySwiper"
-      @swiper="onSwiper"
-    >
-      <swiper-slide>
-        <div class="h-100">
-          <div class="position-absolute z-0">
-            <img src="@/assets/images/banner-bg-1.jpeg" class="img-fluid" alt="" />
-          </div>
-          <div class="container position-relative h-100">
-            <div class="row align-items-center h-100">
-              <div class="col-lg-6">
-                <h1 class="fw-lighter lh-1 mb-3 text-white">Classic Jewellery Collection</h1>
-                <p class="text-white">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus impedit vero
-                  facilis rem commodi quo nihil alias officia, sequi quae?
-                </p>
-                <ActionButton label="Shop Now" size="large" />
+  <div class="home-banner position-relative">
+    <!-- <DropdownMenu class="position-relative z-1" /> -->
+    <div class="position-absolute z-0 top-0 h-100 w-100 bg-secondary">
+      <!-- <img
+        src="../../assets/images/banner-bg-1.jpeg"
+        class="img-fluid object-fit-cover w-100 h-100"
+        alt=""
+      /> -->
+      <swiper
+        :slides-per-view="1"
+        :space-between="50"
+        :modules="[Navigation, Autoplay]"
+        :autoplay="{
+          delay: 5500,
+          disableOnInteraction: false
+        }"
+        navigation
+        :scrollbar="{ hide: true }"
+        class="mySwiper"
+        @swiper="onSwiper"
+      >
+        <swiper-slide>
+          <div class="h-100 slider-content">
+            <div class="h-100 container">
+              <div class="h-100 row">
+                <div class="col-md-9 offset-md-3">
+                  <div class="h-100 row align-items-center">
+                    <div class="col-md-5">
+                      <h1 class="mb-3">Wooden Lounge Chair</h1>
+                      <p class="">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.<br />Lorem ipsum
+                        dolor sit amet
+                      </p>
+                      <ActionButton label="Shop Now" size="large" class="bg-primary" />
+                    </div>
+                    <div class="col-md-7">
+                      <img
+                        src="../../assets/images/woodmart/slider-main-demo-1.jpg"
+                        class="img-fluid slider-img"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="h-100">
-          <div class="position-absolute z-0">
-            <img src="@/assets/images/banner-bg-1.jpeg" class="img-fluid" alt="" />
-          </div>
-          <div class="container position-relative h-100">
-            <div class="row align-items-center h-100">
-              <div class="col-lg-6">
-                <h1 class="display-5 fw-lighter lh-1 mb-3 text-white">
-                  Classic Jewellery Collection
-                </h1>
-                <p class="text-white">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus impedit vero
-                  facilis rem commodi quo nihil alias officia, sequi quae?
-                </p>
-                <button
-                  class="btn btn-outline-primary rounded-0 border-white py-3 px-5 mt-4 text-white"
-                >
-                  Shop Now
-                </button>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="h-100 slider-content">
+            <div class="h-100 container">
+              <div class="h-100 row">
+                <div class="col-md-9 offset-md-3">
+                  <div class="h-100 row align-items-center">
+                    <div class="col-md-5">
+                      <h1 class="mb-3">Wooden Lounge Chair</h1>
+                      <p class="">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.<br />Lorem ipsum
+                        dolor sit amet
+                      </p>
+                      <ActionButton label="Shop Now" size="large" class="bg-primary" />
+                    </div>
+                    <div class="col-md-7">
+                      <img
+                        src="../../assets/images/woodmart/slider-main-demo-3.jpg"
+                        class="img-fluid slider-img"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </swiper-slide>
-    </swiper>
+        </swiper-slide>
+      </swiper>
+    </div>
   </div>
 </template>

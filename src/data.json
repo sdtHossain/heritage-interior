@@ -1,0 +1,119 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "title": "Menu 1",
+      "iconClass": "ri-layout-masonry-fill",
+      "submenu": [
+        {
+          "id": 1,
+          "title": "Submenu 1",
+          "iconClass": "ri-command-line",
+          "submenu": [
+            {
+              "id": 1,
+              "title": "Sub submenu 1",
+              "iconClass": "ri-layout-masonry-fill"
+            },
+            {
+              "id": 2,
+              "title": "Sub submenu 2",
+              "iconClass": "ri-layout-masonry-fill",
+              "submenu": [
+                {
+                  "id": 1,
+                  "title": "triple sub",
+                  "iconClass": "ri-layout-masonry-fill"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Submenu 2",
+          "iconClass": "ri-layout-masonry-fill"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Menu 2",
+      "iconClass": "ri-command-line",
+      "submenu": [
+        {
+          "id": 1,
+          "title": "menu2 submenu 1",
+          "iconClass": "ri-layout-masonry-fill"
+        },
+        {
+          "id": 2,
+          "title": "menu2 submenu 2",
+          "iconClass": "ri-layout-masonry-fill",
+          "submenu": [
+            {
+              "id": 1,
+              "title": "triple sub",
+              "iconClass": "ri-layout-masonry-fill"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Menu 3",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 4,
+      "title": "Menu 4",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 5,
+      "title": "Menu 5",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 6,
+      "title": "Menu 6",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 7,
+      "title": "Menu 7",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 8,
+      "title": "Menu 8",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 9,
+      "title": "Menu 9",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 10,
+      "title": "Menu 10",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 11,
+      "title": "Menu 11",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 12,
+      "title": "Menu 12",
+      "iconClass": "ri-layout-masonry-fill"
+    },
+    {
+      "id": 13,
+      "title": "Menu 13",
+      "iconClass": "ri-layout-masonry-fill"
+    }
+  ]
+}

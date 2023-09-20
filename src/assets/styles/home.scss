@@ -1,9 +1,26 @@
+@import './dropdownMenu';
 // Banner Section
 .home-banner {
+  min-height: 500px;
   .mySwiper {
-    height: 700px;
+    height: 100%;
   }
   h1 {
     font-size: 80px;
+  }
+
+  .slider-content {
+    h1 {
+      font-size: 52px;
+      line-height: 56px;
+      font-weight: 600;
+    }
+    .slider-img {
+      transition: all 0.35s cubic-bezier(0.38, 3, 0.57, 1.6);
+    }
+
+    .slider-img:hover {
+      transform: translate3d(-6px, 0px, 0);
+    }
   }
 }
