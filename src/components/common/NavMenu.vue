@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import DropdownMenu from '@/components/dropdownMenu/DropdownMenu.vue'
 const props = defineProps({
   itemColor: {
@@ -10,6 +11,8 @@ const props = defineProps({
     default: true
   }
 })
+
+const isOpenDropdown = ref(false)
 </script>
 
 <template>
@@ -17,11 +20,14 @@ const props = defineProps({
     <div class="row align-items-center">
       <div v-if="isHeader" class="col-lg-2">
         <ul class="nav position-relative justify-content-center py-3" :class="`bg-${itemColor}`">
-          <li class="nav-item text-center text-white">
+          <li class="nav-item text-center text-white" @click="isOpenDropdown = !isOpenDropdown">
             <i class="ri-menu-line me-2"></i>
             All Categories
             <i class="ri-arrow-down-s-line ms-2"></i>
-            <DropdownMenu class="position-absolute start-0 top-100 z-1 bg-white" />
+            <DropdownMenu
+              class="position-absolute start-0 top-100 z-1 bg-white custom-dropdown-menu"
+              :class="isOpenDropdown || $route.name == 'home' ? 'open' : ''"
+            />
           </li>
         </ul>
       </div>

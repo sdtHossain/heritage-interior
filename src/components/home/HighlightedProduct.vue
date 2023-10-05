@@ -3,7 +3,7 @@ import ActionButton from '../common/ActionButton.vue'
 </script>
 <template>
   <div class="container-fluid px-0">
-    <div class="row mx-0">
+    <div class="row mx-0 g-0">
       <div class="col ps-0">
         <div class="position-relative">
           <img

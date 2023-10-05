@@ -43,3 +43,13 @@
   top: 0;
   text-wrap: nowrap;
 }
+
+.custom-dropdown-menu {
+  height: 0;
+  transition: 0.3s height ease-in-out;
+  overflow: hidden;
+
+  &.open {
+    height: auto;
+  }
+}
