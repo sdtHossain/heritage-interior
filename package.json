@@ -9,7 +9,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "codegen": "rm src/openapi/components/*; rm src/openapi/operations/*; node codegen/apiparser.mjs && prettier --write src/openapi/"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",

@@ -1,0 +1,145 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import api from "../utils/api";
+import { authStore } from "@/auth/auth";
+import {formDatafy} from "../utils/formdata";
+import type * as Components from "../components";
+import type { PagedCollection } from "../types/collection";
+
+interface {{name}}Params {
+    {% for p in spec.parameters -%}
+    {%- if p.in == "query" -%}
+        "{{p.name}}"?:{%- if p.schema.type == 'array' -%}
+                        {{p.schema.items.type if p.schema.items.type != 'integer' else 'number' }}[]
+                      {%- elseif p.schema.type == 'integer' -%}
+                        number
+                      {%- else -%}
+                        {{ p.schema.type }}
+                      {%- endif -%};
+    {% endif -%}
+    {%- endfor %}
+}
+{% if spec.requestBody is defined %}
+interface {{name}}RequestBody {
+    {% for contentType, content in spec.requestBody.content %}
+    {%- if loop.first -%}
+    {%- for propName, propObj in content.schema.properties -%}
+    {%- if not propObj.readOnly -%}
+        "{{propName}}"{% if propObj.nullable %}?{% endif %}:{%- if propObj.type == 'array' -%}
+                        {{propObj.items.type if propObj.items.type != 'integer' else 'number' }}[]
+                      {%- elseif propObj.type == 'integer' -%}
+                        number
+                      {%- elseif propObj.oneOf is defined -%}
+                        {{propObj.oneOf[0].type}} //oneOf
+                      {%- elseif propObj.anyOf is defined -%}
+                      {%- if propObj.anyOf[0].$$ref is defined -%}
+                        Components.{{propObj.anyOf[0].$$ref|extractSchemaNameFromRef|camelize}}Component //anyOf
+                      {%- else -%}
+                        {{propObj.anyOf[0].type}} //anyOf
+                      {%- endif -%}
+                      {%- else -%}
+                        {{ propObj.type }}
+                      {%- endif -%}{%- if propObj.format == "binary" -%} | Blob {%- endif -%}{# TODO: Handle other formats ex: iri-reference, date-time, email etc.. #};
+    {% endif -%}
+    {%- endfor -%}
+    {%- endif -%}
+    {% endfor %}
+}
+{% endif %}
+
+{%- set returnTypeSchema = ((spec.responses|firstValueFromObject).content|firstValueFromObject).schema %}
+{%- if returnTypeSchema.$$ref is not defined and returnTypeSchema.properties["hydra:member"] is not defined %}
+export interface {{name}}ResponseBody {
+    {%- for propName, propObj in returnTypeSchema.properties %}
+        "{{propName}}"{% if propObj.nullable %}?{% endif %}:{%- if propObj.type == 'array' -%}
+                        {%- if propObj.items.$$ref is defined -%}
+                            Components.{{propObj.items.$$ref|extractSchemaNameFromRef|camelize}}Component
+                        {%- elif propObj.items.type == 'integer' -%}
+                            number
+                        {%- elif propObj.items.type == 'object' -%}
+                            {
+                            {%- for propNameNested, propObjNested in propObj.items.properties %}
+                                "{{propNameNested}}"{% if propObjNested.nullable %}?{% endif %}:{%- if propObjNested.type == 'array' -%}
+                                    {%- if propObjNested.items.$$ref is defined -%}
+                                        Components.{{propObjNested.items.$$ref|extractSchemaNameFromRef|camelize}}Component
+                                    {%- elif propObjNested.items.type == 'integer' -%}
+                                        number
+                                    {%- else -%}
+                                        {{propObjNested.items.type}}
+                                    {%- endif -%}[]
+                                  {%- elseif propObjNested.type == 'integer' -%}
+                                    number
+                                  {%- else -%}
+                                    {{ propObjNested.type }}
+                                  {%- endif -%}
+                            {%- endfor %}
+                            }
+                        {%- else -%}
+                            {{propObj.items.type}}
+                        {%- endif -%}[]
+                      {%- elseif propObj.type == 'integer' -%}
+                        number
+                      {%- elseif propObj.$$ref is defined -%}
+                        Components.{{propObj.$$ref|extractSchemaNameFromRef|camelize}}Component
+                      {%- elseif propObj.type == 'object' -%}
+                            {
+                            {%- for propNameNested, propObjNested in propObj.properties %}
+                                "{{propNameNested}}"{% if propObjNested.nullable %}?{% endif %}:{%- if propObjNested.type == 'array' -%}
+                                    {%- if propObjNested.items.$$ref is defined -%}
+                                        Components.{{propObjNested.items.$$ref|extractSchemaNameFromRef|camelize}}Component
+                                    {%- elif propObjNested.items.type == 'integer' -%}
+                                        number
+                                    {%- else -%}
+                                        {{propObjNested.items.type}}
+                                    {%- endif -%}[]
+                                  {%- elseif propObjNested.type == 'integer' -%}
+                                    number
+                                  {%- else -%}
+                                    {{ propObjNested.type }}
+                                  {%- endif -%}
+                            {%- endfor %}
+                            }
+                      {%- else -%}
+                        {{ propObj.type }}
+                      {%- endif -%}{%- if propObj.format == "binary" -%} | Blob {%- endif -%}{# TODO: Handle other formats ex: iri-reference, date-time, email etc.. #};
+    {%- endfor %}
+}
+{% endif %}
+export async function {{name}}({% for p in spec.parameters %}{% if p.in == "path" -%}{{p.name}}: {{p.schema.type}}, {% endif %}{% endfor %}{% if spec.requestBody is defined %}requestBody: {{name}}RequestBody, {% endif %}params: {{name}}Params = {}) {
+    const options = {
+        method: "{{ method }}",
+        headers: new Headers({
+            "Authorization": "Bearer "+ (authStore.idToken??''),
+            {% if spec.requestBody is defined -%}
+            {%- for contentType, content in spec.requestBody.content -%}
+            {%- if loop.first -%}
+            {%- if contentType == 'multipart/form-data' -%}// Let browser fill it, for setting "boundary" // {%- endif -%}"Content-Type": "{{contentType}}",
+            {%- endif -%}
+            {%- endfor -%}
+            {%- endif %}
+        }),
+        {% if spec.requestBody is defined -%}
+        {%- for contentType, content in spec.requestBody.content -%}
+        {%- if loop.first -%}
+        {%- if contentType == 'multipart/form-data' -%}
+        body: formDatafy(requestBody),
+        {%- else -%}
+        body: JSON.stringify(requestBody),
+        {%- endif -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- endif %}
+    }
+    const response = await api("{{path}}"{% for p in spec.parameters %}{% if p.in == "path" -%}.replace("{% raw %}{{% endraw %}{{p.name}}{% raw %}}{% endraw %}", {{p.name}}){% endif %}{% endfor %}, {...options, params: params});
+    const data = await response.json();
+    {% if returnTypeSchema.$$ref is defined -%}
+    return data as Components.{{returnTypeSchema.$$ref|extractSchemaNameFromRef|camelize}}Component;
+    {%-  elseif returnTypeSchema.$$ref is not defined and returnTypeSchema.properties["hydra:member"] is defined -%}
+    return data as PagedCollection<Components.{{returnTypeSchema.properties["hydra:member"].items.$$ref|extractSchemaNameFromRef|camelize}}Component>;
+    {%- elseif returnTypeSchema.type == "object"  -%}
+    return data as {{name}}ResponseBody;{# TODO: make recursive properties outputter  #}
+    {%- elseif returnTypeSchema.type == "array" -%}
+    return data as Components.{{returnTypeSchema.items.$$ref|extractSchemaNameFromRef|camelize}}Component[];
+    {%- else -%}
+    return data as {{returnTypeSchema.type}};
+    {%- endif %}
+}

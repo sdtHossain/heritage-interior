@@ -1,0 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type * as Components from "./index";
+
+export interface {{name}}Component {
+    {% for propName, propObj in spec.properties -%}
+        "{{propName}}"{% if propObj.nullable %}?{% endif %}:{%- if propObj.type == 'array' and propObj.items.$$ref is not defined -%}
+                        {{propObj.items.type if propObj.items.type != 'integer' else 'number' }}[]
+                      {%- elseif propObj.type == 'array' and propObj.items.$$ref is defined -%}
+                        Components.{{propObj.items.$$ref|extractSchemaNameFromRef|camelize}}Component[]
+                      {%- elseif propObj.$$ref is defined -%}
+                        Components.{{propObj.$$ref|extractSchemaNameFromRef|camelize}}Component
+                      {%- elseif propObj.type == 'integer' -%}
+                        number
+                      {%- elseif propObj.oneOf is defined -%}
+                        {{propObj.oneOf[0].type}} //oneOf
+                      {%- elseif propObj.anyOf is defined -%}
+                      {%- if propObj.anyOf[0].$$ref is defined -%}
+                        Components.{{propObj.anyOf[0].$$ref|extractSchemaNameFromRef|camelize}}Component //anyOf
+                      {%- else -%}
+                        {{propObj.anyOf[0].type}} //anyOf
+                      {%- endif -%}
+                      {%- else -%}
+                        {{ propObj.type }}
+                      {%- endif -%};
+    {% endfor %}
+    {%- if name|startsWith('SonataMediaMedia') %}
+    [key: `${string}_${string}`]: string;
+    {%- endif %}
+}

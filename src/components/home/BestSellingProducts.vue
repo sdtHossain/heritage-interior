@@ -5,7 +5,7 @@ import SectionTitle from '../common/SectionTitle.vue'
 <template>
   <div class="container text-center">
     <SectionTitle title-text="Our Bestselling" slogan="Our Jewelry Selection" />
-    <ProductCardFourCol product-type="best_selling" />
+    <ProductCardFourCol gutter="g-5" product-type="best_selling" />
   </div>
 </template>
 <style scoped></style>
