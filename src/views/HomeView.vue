@@ -12,18 +12,22 @@ import { storeToRefs } from 'pinia'
 import ProductCardGrid from '@/components/common/ProductCardGrid.vue'
 import TwoColumnImageAndText from '@/components/common/TwoColumnImageAndText.vue'
 import ProjectShowcase from '@/components/home/ProjectShowcase.vue'
-import { ApiProductsGetCollection } from '@/openapi/operations/ApiProductsGetCollection'
+import { ApiProductsGetCollection, ApiCategoriesGetCollection } from '@/openapi/operations'
 
 const { isProductModalOpen } = storeToRefs(useProductStore())
 
-// const products = await ApiProductsGetCollection()
+const products = ref()
+
+const productsCollection = await ApiProductsGetCollection({})
+products.value = productsCollection['hydra:member']
 </script>
 
 <template>
   <main>
     <ProductDetails v-if="isProductModalOpen" />
-    <TheBanner />
-    <HighlightedProduct class="mt-7" />
+    <TheBanner :products="products" />
+    <HighlightedProduct class="mt-7" :highlighted-products="products" />
+    <div>products: {{ products }}</div>
     <ProjectShowcase class="mt-20" />
     <ProductCardGrid class="my-15" />
     <BestSellingProducts class="pt-20" />
