@@ -17,6 +17,10 @@
     "bootstrap": "^5.3.0",
     "pinia": "^2.0.36",
     "remixicon": "^3.3.0",
+    "inflection": "^2.0.1",
+    "lodash-es": "^4.17.21",
+    "nunjucks": "^3.2.4",
+    "swagger-client": "^3.24.5",
     "swiper": "^10.1.0",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"

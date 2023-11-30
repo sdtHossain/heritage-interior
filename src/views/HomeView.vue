@@ -12,7 +12,11 @@ import { storeToRefs } from 'pinia'
 import ProductCardGrid from '@/components/common/ProductCardGrid.vue'
 import TwoColumnImageAndText from '@/components/common/TwoColumnImageAndText.vue'
 import ProjectShowcase from '@/components/home/ProjectShowcase.vue'
+import { ApiProductsGetCollection } from '@/openapi/operations/ApiProductsGetCollection'
+
 const { isProductModalOpen } = storeToRefs(useProductStore())
+
+// const products = await ApiProductsGetCollection()
 </script>
 
 <template>
