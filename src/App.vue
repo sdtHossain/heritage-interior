@@ -17,7 +17,14 @@ import FooterView from '@/components/layout/Footer.vue'
     <TheHeader />
   </header>
 
-  <RouterView />
+  <router-view v-slot="{ Component }">
+    <suspense timeout="0">
+      <template #default>
+        <component :is="Component" :key="$route.fullPath"></component>
+      </template>
+      <template #fallback>Loading....</template>
+    </suspense>
+  </router-view>
 
   <FooterTop class="mt-20" />
   <FooterView />
