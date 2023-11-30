@@ -12,7 +12,7 @@ process.chdir(path.dirname(fileURLToPath(import.meta.url)))
 
 import SwaggerClient from 'swagger-client'
 const def = await SwaggerClient.resolve({
-  url: 'http://revashop.revanus.com/api/docs.json'
+  url: 'https://revashop.revanus.com/api/docs.json'
 })
 
 const nun = nunjucks
